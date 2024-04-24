@@ -1,5 +1,6 @@
 # Google_Hack
-google hackathon-silicon engineering
+how to setup the environment and run the code, open file
+
 
 to setup the environment, input these command lines in Command Prompt(Windows):
 pip install numpy
