@@ -1,0 +1,51 @@
+q2solution- design document
+
+1. for NOC design, the action, reward and state are to be defined to achieve the optimal conditions mentioned. 
+
+1. The components to focus on:
+System Components:
+a) CPU
+b) IO Peripheral
+c) System Memory
+Network on Chip (NOC):
+a) Bi-directional ports for CPU, IO Peripheral, and System Memory
+b) Buffering for each interface
+c) Weighted round-robin arbiter to route traffic from CPU and IO Peripheral to System Memory
+Traffic Patterns:
+a) Simulate reads and writes on the CPU and IO interfaces to the NOC
+Simulation Environment:
+a) Implement a simulation loop to drive the simulation forward in time
+b) Track latency for reads and writes to and from System Memory
+c) Monitor buffer occupancy for each interface
+d) Adjust arbiter weights dynamically based on the workload and traffic patterns
+e) Implement throttling mechanism based on power threshold
+
+2. State Representation
+
+The state space is represented by a vector containing the following parameters:
+
+Buffer Occupancy: Current occupancy level of buffers.
+CPU Arbitration Rate: Arbitration rate for CPU.
+IO Arbitration Rate: Arbitration rate for IO.
+Power Consumption: Current power consumption level.
+
+3. Action Space
+
+The action space consists of adjustments that can be made to the NOC parameters:
+
+Increase or decrease buffer sizes.
+Adjust CPU and IO arbitration rates.
+Control power consumption levels.
+
+4. Reward Function
+
+The reward function is designed to incentivize behaviors that lead to optimal NOC performance:
+
+Latency: Reward increases as measured latency approaches or falls below the minimum latency threshold.
+Bandwidth: Reward increases as measured bandwidth approaches or exceeds 95% of the maximum bandwidth.
+Buffer Sizing: Reward increases for maintaining buffer occupancy close to 90%.
+Throttling: Penalize occurrences of throttling, with higher penalties for more frequent throttling.
+
+5. Training Procedure
+
+The RL agent is trained using the DDPG (Deep Deterministic Policy Gradient) algorithm. The agent interacts with the NOC environment, observing states, taking actions, and receiving rewards. During training, the agent learns to maximize cumulative rewards by adjusting its policy.
